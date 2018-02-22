@@ -16,7 +16,7 @@ def init_db():
     Base.metadata.drop_all(bind=engine)
     Base.metadata.create_all(bind=engine)
 
-    testUser = User(firstName="Tester", lastName="McTest",
+    testUser = User(id="", firstName="Tester", lastName="McTest",
                     email="testerMctest@test.com", password="testing123")
     db_session.add(testUser)
     db_session.commit()

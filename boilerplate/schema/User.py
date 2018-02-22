@@ -18,17 +18,21 @@ class Users(SQLAlchemyObjectType):
 class Query(graphene.ObjectType):
     # User Query
     user = SQLAlchemyConnectionField(Users)
-    get_user = graphene.Field(lambda: Users, id=graphene.Int())
-    get_all_users = SQLAlchemyConnectionField(Users)
+    users = SQLAlchemyConnectionField(Users)
 
-    def resolve_get_user(self, args, context, info):
-        query = Users.get_query(context)
-        userId = args.get('id')
+    def resolve_user(self, info, id):
+        query = Users.get(id=id)
 
-        return query.filter(UserModel.id == userId).first()
+        return query
+
+    def resolve_users(self, info):
+        query = Users.get_query(info)
+
+        return query.all()
 
 
 class UserInput(graphene.InputObjectType):
+    id = graphene.String()
     firstName = graphene.String()
     lastName = graphene.String()
     email = graphene.String()

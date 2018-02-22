@@ -5,7 +5,7 @@ from boilerplate.database import Base
 class User(Base):
     __tablename__ = 'users'
 
-    id = Column(Integer, primary_key=True)
+    id = Column(String, primary_key=True)
     firstName = Column(String)
     lastName = Column(String)
     email = Column(String)
